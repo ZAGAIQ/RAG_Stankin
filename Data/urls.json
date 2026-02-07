@@ -1,0 +1,88 @@
+GENERAL_URLS = [
+    
+    "https://priem.stankin.ru/olympiads/",
+    
+    "https://priem.stankin.ru/zadatvoprospk/",
+    
+    "https://priem.stankin.ru/meropriyatiya/",
+
+    "https://priem.stankin.ru/rod_sobranie/",
+    
+    "https://priem.stankin.ru/rod_sobranie/",
+    
+    "https://priem.stankin.ru/rod_sobranie/",
+    
+    "https://priem.stankin.ru/rod_sobranie/",
+    
+    "https://priem.stankin.ru/rod_sobranie/",
+    
+    "https://priem.stankin.ru/rod_sobranie/",
+    
+    "https://priem.stankin.ru/rod_sobranie/",
+    
+    "https://priem.stankin.ru/rod_sobranie/",
+    
+    "https://priem.stankin.ru/rod_sobranie/",
+]
+
+
+CATEGORY_SPECIFIC_URLS = {
+    
+    "Бакалавриат": [
+        "https://priem.stankin.ru/bakalavriatispetsialitet/submit_documents_bs/", 
+        "https://priem.stankin.ru/bakalavriatispetsialitet/training_programs/",
+        "https://priem.stankin.ru/bakalavriatispetsialitet/Individual_achievements/",
+        "https://priem.stankin.ru/bakalavriatispetsialitet/formaprovedeniyaekzamenov/", 
+        "https://priem.stankin.ru/bakalavriatispetsialitet/training_programs/",
+        "https://priem.stankin.ru/bakalavriatispetsialitet/Individual_achievements/",
+        "https://priem.stankin.ru/bakalavriatispetsialitet/submit_documents_bs/", 
+        "https://priem.stankin.ru/bakalavriatispetsialitet/training_programs/",
+        "https://priem.stankin.ru/bakalavriatispetsialitet/Individual_achievements/",
+    ],
+    
+    "Специалитет": [
+        "https://www.stankin.ru/abiturientu/spetsialitet/",
+        "https://www.stankin.ru/priemnaya-kampaniya/spetsialitet/tests",
+    ],
+    
+    "Магистратура": [
+        "https://www.stankin.ru/abiturientu/magistratura/",
+        "https://www.stankin.ru/priemnaya-kampaniya/magistratura/exams_list",
+    ],
+    
+    "Аспирантура": [
+        "https://www.stankin.ru/abiturientu/aspirantura/",
+        "https://www.stankin.ru/priemnaya-kampaniya/postgraduate_terms/",
+    ],
+    
+    "Докторантура": [
+        "https://www.stankin.ru/science/doctorate/"
+    ]
+}
+
+
+PDFS = {
+    "Бакалавриат": [
+        "https://newcloud.stankin.ru/s/YozjQrwrYcGeDF3",
+        
+    ],
+    
+    "Специалитет": [
+        "https://www.stankin.ru/abiturientu/spetsialitet/",
+        "https://www.stankin.ru/priemnaya-kampaniya/spetsialitet/tests",
+    ],
+    
+    "Магистратура": [
+        "https://www.stankin.ru/abiturientu/magistratura/",
+        "https://www.stankin.ru/priemnaya-kampaniya/magistratura/exams_list",
+    ],
+    
+    "Аспирантура": [
+        "https://www.stankin.ru/abiturientu/aspirantura/",
+        "https://www.stankin.ru/priemnaya-kampaniya/postgraduate_terms/",
+    ],
+    
+    "Докторантура": [
+        "https://www.stankin.ru/science/doctorate/"
+    ]
+}
