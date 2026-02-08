@@ -1,6 +1,7 @@
 import json
 import os
 import datetime
+import re
 from typing import List
 from langchain_core.documents import Document
 from langchain_chroma import Chroma
@@ -18,6 +19,47 @@ def clean_int(value) -> int:
         return int(str(value).replace(" ", ""))
     except (ValueError, TypeError):
         return 0
+    
+def prettify_exams(raw_text: str) -> str:
+    """
+    Превращает 'Р (min 40) + И (min 44)/Ф (min 40)'
+    В 'Русский язык (минимум 40), Информатика (минимум 44) или Физика (минимум 40)'
+    """
+    if not raw_text or raw_text == 'N/A':
+        return "Нет данных о вступительных испытаниях"
+
+    # Словарь расшифровок
+    mapping = {
+        'Р': 'Русский язык',
+        'М': 'Математика',
+        'И': 'Информатика',
+        'Ф': 'Физика',
+        'Х': 'Химия',
+        'X': 'Химия', # Латинская X на всякий случай
+        'О': 'Обществознание',
+        'ИЯ': 'Иностранный язык',
+        'Б': 'Биология',
+        'Г': 'География',
+        'Л': 'Литература'
+    }
+
+    text = raw_text
+    
+    # 1. Заменяем сокращения предметов
+    # \b означает "граница слова", чтобы случайно не заменить букву внутри другого слова
+    for short, full in mapping.items():
+        text = re.sub(rf'\b{short}\b', full, text)
+
+    # 2. Делаем текст читаемым
+    text = text.replace("min", "минимум")
+    text = text.replace("+", ",")       # Плюс меняем на запятую
+    text = text.replace("/", " или ")   # Слэш меняем на "или"
+    
+    # Убираем лишние пробелы, если появились
+    text = re.sub(r'\s+', ' ', text).strip()
+    
+    return text
+
 
 def create_documents(path: str) -> List[Document]:
     if not os.path.exists(path):
@@ -42,9 +84,11 @@ def create_documents(path: str) -> List[Document]:
         raw_subjects_list = prog.get('Предметы_Список', [])
         subjects_str = ", ".join(raw_subjects_list)
 
+        exams_pretty = prettify_exams(prog.get('Предметы', ''))
+
         # 2. СБОРКА МЕТАДАННЫХ (Ключи English, Значения Russian)
         metadata = {
-            "source_type": "table",
+            "source_type": "Таблица",
             "created_at": datetime.datetime.now().strftime("%Y-%m-%d"),
             
             # Строковые поля (оставляем как в JSON)
@@ -73,7 +117,7 @@ def create_documents(path: str) -> List[Document]:
 Уровень образования: {prog['Уровень']}
 Форма обучения: {prog['Форма']}
 
-Вступительные экзамены (ЕГЭ): {prog.get('Предметы', 'Нет данных')}
+Экзамены (ЕГЭ): {exams_pretty}
 
 Количество мест (на 2026 год):
 - Бюджетных мест: {metadata['b_places']}
