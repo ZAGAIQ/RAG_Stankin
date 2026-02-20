@@ -1,0 +1,30 @@
+# Секреты и ключи
+.env
+*.env
+
+# Виртуальное окружение
+venv/
+.venv/
+env/
+
+# Кэш Python и Jupyter
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+
+# Базы данных и сгенерированные файлы
+chroma_db/
+*.sqlite3
+*.db
+
+# Файлы IDE (VS Code / PyCharm)
+.vscode/
+.idea/
+
+# Системный мусор
+.DS_Store
+Thumbs.db
+
+# Логи и временные файлы
+*.log
