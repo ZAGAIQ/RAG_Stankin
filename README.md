@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="assets\logo.jpg" alt="Banner" width="800">
+
 # 🎓 STANKIN AI Admissions Assistant | Telegram RAG Bot
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/ТВОЙ_НИК/ТВОЙ_РЕПОЗИТОРИЙ?style=for-the-badge)
