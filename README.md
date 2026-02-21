@@ -1,11 +1,13 @@
 <div align="center">
 
-<img src="assets\logo.jpg" alt="Banner" width="800">
+| <img src="assets\logo.png" alt="Banner" width="200"> |
+| :---: |
 
 # 🎓 STANKIN AI Admissions Assistant | Telegram RAG Bot
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/ТВОЙ_НИК/ТВОЙ_РЕПОЗИТОРИЙ?style=for-the-badge)
 [![Telegram Bot](https://img.shields.io/badge/Telegram-Test_Bot-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/stankin_ab_bot)
+![License](https://img.shields.io/github/license/ZAGAIQ/RAG_Stankin?style=for-the-badge)
 
 <br/>
 
