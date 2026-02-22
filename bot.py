@@ -5,6 +5,7 @@ import asyncio
 import logging
 import os
 import html
+from datetime import datetime
 from dotenv import load_dotenv
 
 from aiogram import Bot, Dispatcher, types, F
@@ -58,32 +59,38 @@ async def handle_rag_query(message: types.Message):
             await temp_msg.edit_text("Система еще загружается, подождите 10 секунд и повторите.")
             return
 
-        response = await rag_chain.ainvoke({"input": user_query})
+        current_time = datetime.now().strftime("%d.%m.%Y %H:%M")
+
+        response = await rag_chain.ainvoke(
+            {"input": user_query, "time": current_time},
+            config={"configurable": {"session_id": str(message.chat.id)}}
+        )
         
         answer_text = response['answer']
         context_docs = response.get('context', [])
 
         # 4. Формируем источники (в HTML)
-        sources_text = ""
-        if context_docs:
-            sources_text = "\n\n📚 <b>Источники:</b>\n"
-            for i, doc in enumerate(context_docs[:3]):
-                raw_score = doc.metadata.get('relevance_score')
+        # sources_text = ""
+        # if context_docs:
+        #     sources_text = "\n\n📚 <b>Источники:</b>\n"
+        #     for i, doc in enumerate(context_docs[:3]):
+        #         raw_score = doc.metadata.get('relevance_score')
                 
                 
-                src_type = doc.metadata.get('source_type', 'Док')
-                code = doc.metadata.get('program_code', '-')
+        #         src_type = doc.metadata.get('source_type', 'Док')
+        #         code = doc.metadata.get('program_code', '-')
                 
-                safe_type = html.escape(str(src_type))
-                safe_code = html.escape(str(code))
+        #         safe_type = html.escape(str(src_type))
+        #         safe_code = html.escape(str(code))
                 
-                sources_text += f"<i>{i+1}. {safe_type} | {safe_code}</i>\n"
+        #         sources_text += f"<i>{i+1}. {safe_type} | {safe_code}</i>\n"
         
         # 5. Экранируем сам ответ нейронки
         # Если нейронка напишет "x < y", без escape это сломает HTML
         # Но мы оставим как есть, так как Gemini редко пишет теги.
 
-        final_text = f"{answer_text}{sources_text}"
+        # final_text = f"{answer_text}{sources_text}"
+        final_text = f"{answer_text}"
 
         # 6. Сначала отправляем новое, потом удаляем старое.
         await message.answer(final_text, parse_mode=ParseMode.HTML)
@@ -93,7 +100,7 @@ async def handle_rag_query(message: types.Message):
         print(f"ERROR: {e}")
         # Если временное сообщение еще живо, редактируем его
         try:
-            await temp_msg.edit_text(f"❌ Произошла ошибка: {e}")
+            await temp_msg.edit_text(f"❌ Произошла ошибка")
         except:
             # Если temp_msg уже удалено, отправляем новое
             await message.answer("❌ Произошла ошибка при обработке запроса.")
